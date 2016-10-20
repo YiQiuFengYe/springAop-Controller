@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+	<aop:config>
+		<aop:aspect ref="aspectTest">
+			<aop:pointcut expression="execution(* com.spring.test.*.*(..))" id="sayHelloPointcut"/>
+			<aop:after method="after" pointcut-ref="sayHelloPointcut"/>
+			<aop:before method="before" pointcut-ref="sayHelloPointcut"/>
+			<aop:around method="around" pointcut-ref="sayHelloPointcut"/>
+			<aop:after-throwing method="throwing" pointcut-ref="sayHelloPointcut" throwing="ex"/>
+		</aop:aspect>
+	</aop:config>
+	<bean id="aspectTest" class="com.spring.test.AspectTest" />	
+	<bean id="sayHelloImplCglib" class="com.spring.test.SayHelloImplCglib" />	
+	<bean id="sayHelloImplJdk" class="com.spring.test.SayHelloImplJdk" />	
+
+</beans>
